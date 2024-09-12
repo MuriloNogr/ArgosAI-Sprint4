@@ -25,6 +25,7 @@ public class Produto {
     @Column(nullable = false)
     private int quantidade;
 
+
     @NotNull(message = "O preço é obrigatório")
     @Positive(message = "O preço deve ser um valor positivo")
     @Column(nullable = false)

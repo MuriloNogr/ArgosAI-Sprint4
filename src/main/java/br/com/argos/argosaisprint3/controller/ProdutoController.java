@@ -1,11 +1,12 @@
 package br.com.argos.argosaisprint3.controller;
 
-
 import br.com.argos.argosaisprint3.dto.ProdutoDto;
 import br.com.argos.argosaisprint3.model.Produto;
 import br.com.argos.argosaisprint3.service.ProdutoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class ProdutoController {
     @GetMapping
     public List<ProdutoDto> getAllProdutos() {
         return produtoService.findAll().stream()
-                .map(this::convertToDto)
+                .map(this::convertToDtoWithLinks)
                 .collect(Collectors.toList());
     }
 
@@ -36,7 +37,7 @@ public class ProdutoController {
     @GetMapping("/{id}")
     public ResponseEntity<ProdutoDto> getProdutoById(@PathVariable Long id) {
         return produtoService.findById(id)
-                .map(produto -> ResponseEntity.ok(convertToDto(produto)))
+                .map(produto -> ResponseEntity.ok(convertToDtoWithLinks(produto)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -44,7 +45,7 @@ public class ProdutoController {
     @GetMapping("/buscar")
     public List<ProdutoDto> getProdutosByNome(@RequestParam String nome) {
         return produtoService.findByNome(nome).stream()
-                .map(this::convertToDto)
+                .map(this::convertToDtoWithLinks)
                 .collect(Collectors.toList());
     }
 
@@ -52,7 +53,7 @@ public class ProdutoController {
     @PostMapping
     public ProdutoDto createProduto(@Valid @RequestBody ProdutoDto produtoDto) {
         Produto produto = convertToEntity(produtoDto);
-        return convertToDto(produtoService.save(produto));
+        return convertToDtoWithLinks(produtoService.save(produto));
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -62,7 +63,7 @@ public class ProdutoController {
                 .map(produtoExistente -> {
                     Produto produto = convertToEntity(produtoDto);
                     produto.setId(id);
-                    return ResponseEntity.ok(convertToDto(produtoService.save(produto)));
+                    return ResponseEntity.ok(convertToDtoWithLinks(produtoService.save(produto)));
                 }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -74,6 +75,17 @@ public class ProdutoController {
                     produtoService.deleteById(id);
                     return ResponseEntity.ok().build();
                 }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    private ProdutoDto convertToDtoWithLinks(Produto produto) {
+        ProdutoDto dto = modelMapper.map(produto, ProdutoDto.class);
+
+        Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ProdutoController.class).getProdutoById(produto.getId())).withSelfRel();
+        Link allLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ProdutoController.class).getAllProdutos()).withRel("allProdutos");
+        dto.add(selfLink);
+        dto.add(allLink);
+
+        return dto;
     }
 
     private ProdutoDto convertToDto(Produto produto) {
