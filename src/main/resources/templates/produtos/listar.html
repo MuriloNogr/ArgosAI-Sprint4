@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/styles.css">
+  <title>Lista de Produtos</title>
+</head>
+<body>
+<h1>Lista de Produtos</h1>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Nome</th>
+    <th>Descrição</th>
+    <th>Imagem</th> <!-- Coluna para exibir a imagem -->
+    <th>Preço</th>
+    <th>Quantidade</th>
+    <th>Ações</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="produto : ${produtos}">
+    <td th:text="${produto.id}">ID</td>
+    <td th:text="${produto.nome}">Nome</td>
+    <td th:text="${produto.descricao}">Descrição</td>
+    <td><img th:src="${produto.imagem}" alt="Imagem do Produto" style="max-width: 100px; max-height: 100px;"/></td>
+    <td th:text="'R$' + ${produto.preco}">Preço</td>
+    <td th:text="${produto.quantidade}">Quantidade</td>
+    <td>
+      <a th:href="@{'/produtos/editar/' + ${produto.id}}">Editar</a>
+      <a th:href="@{'/produtos/deletar/' + ${produto.id}}">Excluir</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a href="/produtos/adicionar">Adicionar Novo Produto</a>
+</body>
+</html>
