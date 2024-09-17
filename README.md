@@ -4,6 +4,9 @@
 
 ArgosAI-Sprint3 é um projeto desenvolvido para gerenciar clientes e produtos em um sistema de recomendação. Ele faz uso de APIs RESTful, documentação com Swagger, e a arquitetura segue padrões como HATEOAS (Hypermedia as the Engine of Application State) para uma navegação mais dinâmica entre recursos.
 
+Link da  API: https://argosai-sprint3.fly.dev
+Link do video: https://youtu.be/TuZxLj5rcB0?si=O8vT2Xtyl3Zfn52d
+
 ## Tecnologias Utilizadas
 
 - **Java 17**: Linguagem principal do projeto.
