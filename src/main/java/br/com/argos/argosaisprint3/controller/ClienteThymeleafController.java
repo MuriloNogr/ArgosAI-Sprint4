@@ -56,9 +56,10 @@ public class ClienteThymeleafController {
     public String exibirFormularioDeEdicao(@PathVariable Long id, Model model) {
         Cliente cliente = clienteService.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
-        model.addAttribute("cliente", cliente);
+        model.addAttribute("cliente", cliente); // Adiciona o cliente ao Model
         return "clientes/editar";
     }
+
 
     @Operation(summary = "Salvar um cliente", description = "Salva um cliente no banco de dados")
     @ApiResponses(value = {

@@ -6,9 +6,10 @@
     <title>Editar Cliente</title>
 </head>
 <body>
+<a href="/clientes/listar">Voltar</a>
 <h1>Editar Cliente</h1>
-<form th:action="@{/clientes/{id}(id=${cliente.id})}" method="post">
-    <input type="hidden" th:value="${cliente.id}" name="id"/>
+<form th:action="@{/clientes/{id}(id=${cliente.id_cliente})}" method="post">
+    <input type="hidden" th:value="${cliente.id_cliente}" name="id_cliente"/>
     <label for="nome">Nome:</label>
     <input type="text" id="nome" name="nome" th:value="${cliente.nome}" required><br>
     <label for="idade">Idade:</label>

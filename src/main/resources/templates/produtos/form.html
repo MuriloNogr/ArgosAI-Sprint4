@@ -6,6 +6,7 @@
     <title th:text="${produto.id == null ? 'Adicionar Produto' : 'Editar Produto'}">Formulário de Produto</title>
 </head>
 <body>
+<a href="/produtos/listar">Voltar</a>
 <h1 th:text="${produto.id == null ? 'Adicionar Produto' : 'Editar Produto'}"></h1>
 <form th:action="@{/produtos/salvar}" th:object="${produto}" method="post">
     <input type="hidden" th:field="*{id}"/>
