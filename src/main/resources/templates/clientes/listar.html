@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/css/styles.css">
-  <title>Lista de Clientes</title>
+  <title th:text="#{title.client_list}">Lista de Clientes</title>
 </head>
 <body>
-<h1>Lista de Clientes</h1>
+<h1 th:text="#{title.client_list}">Lista de Clientes</h1>
+<a th:href="@{/index}" th:text="#{link.back_to_home}">Voltar</a>
 <table>
   <thead>
   <tr>
-    <th>ID</th>
-    <th>Nome</th>
-    <th>Idade</th>
-    <th>CPF</th>
-    <th>E-mail</th>
-    <th>Celular</th>
-    <th>Ações</th>
+    <th th:text="#{label.id}">ID</th>
+    <th th:text="#{label.name}">Nome</th>
+    <th th:text="#{label.age}">Idade</th>
+    <th th:text="#{label.cpf}">CPF</th>
+    <th th:text="#{label.email}">E-mail</th>
+    <th th:text="#{label.phone}">Celular</th>
+    <th th:text="#{label.actions}">Ações</th>
   </tr>
   </thead>
   <tbody>
-  <a href="/index">voltar</a>
   <tr th:each="cliente : ${clientes}">
     <td th:text="${cliente.id}">ID</td>
     <td th:text="${cliente.nome}">Nome</td>
@@ -29,12 +29,12 @@
     <td th:text="${cliente.email}">E-mail</td>
     <td th:text="${cliente.celular}">Celular</td>
     <td>
-      <a th:href="@{'/clientes/editar/' + ${cliente.id}}">Editar</a>
-      <a th:href="@{'/clientes/deletar/' + ${cliente.id}}">Excluir</a>
+      <a th:href="@{'/clientes/editar/' + ${cliente.id}}" th:text="#{action.edit}">Editar</a>
+      <a th:href="@{'/clientes/deletar/' + ${cliente.id}}" th:text="#{action.delete}">Excluir</a>
     </td>
   </tr>
   </tbody>
 </table>
-<a href="/clientes/adicionar">Adicionar Novo Cliente</a>
+<a th:href="@{/clientes/adicionar}" th:text="#{action.add_new_client}">Adicionar Novo Cliente</a>
 </body>
 </html>

@@ -2,18 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title th:text="#{title.login}">Login</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<h1>Login</h1>
+<h1 th:text="#{login.header}">Login</h1>
 <form th:action="@{/login}" method="post">
-    <label for="username">Nome de Usuário:</label>
+    <label for="username" th:text="#{label.username}">Nome de Usuário:</label>
     <input type="text" id="username" name="username" required><br>
-    <label for="senha">Senha:</label>
-    <input type="password" id="senha" name="password" required><br> <!-- nome do campo alterado para "password" -->
-    <button type="submit">Entrar</button>
+    <label for="senha" th:text="#{label.password}">Senha:</label>
+    <input type="password" id="senha" name="password" required><br>
+    <button type="submit" th:text="#{button.login}">Entrar</button>
 </form>
-<a href="/register">Não possui uma conta? Registre-se aqui</a>
+<a th:href="@{/register}" th:text="#{link.register_prompt}">Não possui uma conta? Registre-se aqui</a>
 </body>
 </html>

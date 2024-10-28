@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="">
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/css/styles.css">
-  <title>Adicionar Produto</title>
+  <title th:text="#{title.add_product}">Adicionar Produto</title>
 </head>
 <body>
-<a href="/produtos/listar">Voltar</a>
-<h1>Adicionar Novo Produto</h1>
+<a th:href="@{/produtos/listar}" th:text="#{link.back}">Voltar</a>
+<h1 th:text="#{title.add_product}">Adicionar Novo Produto</h1>
 <form th:action="@{/produtos}" method="post">
-  <label for="nome">Nome:</label>
+  <label for="nome" th:text="#{label.name}">Nome:</label>
   <input type="text" id="nome" name="nome" required><br>
-  <label for="descricao">Descrição:</label>
+  <label for="descricao" th:text="#{label.description}">Descrição:</label>
   <input type="text" id="descricao" name="descricao" required><br>
-  <label for="preco">Preço:</label>
+  <label for="preco" th:text="#{label.price}">Preço:</label>
   <input type="number" step="0.01" id="preco" name="preco" required><br>
-  <label for="quantidade">Quantidade:</label>
+  <label for="quantidade" th:text="#{label.quantity}">Quantidade:</label>
   <input type="number" id="quantidade" name="quantidade" required><br>
-  <label for="imagem">URL da Imagem:</label>
+  <label for="imagem" th:text="#{label.image_url}">URL da Imagem:</label>
   <input type="url" id="imagem" name="imagem" required><br>
-  <button type="submit">Salvar</button>
+  <button type="submit" th:text="#{button.save}">Salvar</button>
 </form>
 </body>
 </html>

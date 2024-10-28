@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/css/styles.css">
-  <title>Lista de Produtos</title>
+  <title th:text="#{title.product_list}">Lista de Produtos</title>
 </head>
 <body>
-<h1>Lista de Produtos</h1>
+<h1 th:text="#{title.product_list}">Lista de Produtos</h1>
+<a th:href="@{/index}" th:text="#{link.back_to_home}">Voltar</a>
 <table>
   <thead>
   <tr>
-    <th>ID</th>
-    <th>Nome</th>
-    <th>Descrição</th>
-    <th>Imagem</th> <!-- Coluna para exibir a imagem -->
-    <th>Preço</th>
-    <th>Quantidade</th>
-    <th>Ações</th>
+    <th th:text="#{label.id}">ID</th>
+    <th th:text="#{label.name}">Nome</th>
+    <th th:text="#{label.description}">Descrição</th>
+    <th th:text="#{label.image}">Imagem</th>
+    <th th:text="#{label.price}">Preço</th>
+    <th th:text="#{label.quantity}">Quantidade</th>
+    <th th:text="#{label.actions}">Ações</th>
   </tr>
   </thead>
   <tbody>
-  <a href="/index">Voltar</a>
   <tr th:each="produto : ${produtos}">
     <td th:text="${produto.id}">ID</td>
     <td th:text="${produto.nome}">Nome</td>
@@ -29,12 +29,12 @@
     <td th:text="'R$' + ${produto.preco}">Preço</td>
     <td th:text="${produto.quantidade}">Quantidade</td>
     <td>
-      <a th:href="@{'/produtos/editar/' + ${produto.id}}">Editar</a>
-      <a th:href="@{'/produtos/deletar/' + ${produto.id}}">Excluir</a>
+      <a th:href="@{'/produtos/editar/' + ${produto.id}}" th:text="#{action.edit}">Editar</a>
+      <a th:href="@{'/produtos/deletar/' + ${produto.id}}" th:text="#{action.delete}">Excluir</a>
     </td>
   </tr>
   </tbody>
 </table>
-<a href="/produtos/adicionar">Adicionar Novo Produto</a>
+<a th:href="@{/produtos/adicionar}" th:text="#{action.add_new_product}">Adicionar Novo Produto</a>
 </body>
 </html>

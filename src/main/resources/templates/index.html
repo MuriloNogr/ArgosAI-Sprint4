@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Argos - Página Inicial</title>
+    <title th:text="#{title.home}">Argos - Página Inicial</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<h1>Bem-vindo à Argos!</h1>
-<a href="/produtos/listar">Ver Produtos</a>
-<a href="/clientes/listar">Ver Clientes</a>
+<h1 th:text="#{welcome.message}">Bem-vindo à Argos!</h1>
+<a th:href="@{/produtos/listar}" th:text="#{link.view_products}">Ver Produtos</a>
+<a th:href="@{/clientes/listar}" th:text="#{link.view_clients}">Ver Clientes</a>
 </body>
 </html>
