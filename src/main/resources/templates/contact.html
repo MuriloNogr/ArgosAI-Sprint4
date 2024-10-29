@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title.contact}">Contato</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<a th:href="@{/index}" th:text="#{link.back_to_home}">Voltar</a>
+<h1 th:text="#{header.contact_us}">Fale Conosco</h1>
+<form th:action="@{/contact/sendMessage}" method="post">
+    <label for="name" th:text="#{label.name}">Nome:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="email" th:text="#{label.email}">E-mail:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="message" th:text="#{label.message}">Mensagem:</label>
+    <textarea id="message" name="message" required></textarea><br>
+
+    <button type="submit" th:text="#{button.send}">Enviar</button>
+</form>
+
+<!-- Exibe a mensagem de confirmação, se existir -->
+<p th:text="${confirmationMessage}" th:if="${confirmationMessage != null}"></p>
+</body>
+</html>
