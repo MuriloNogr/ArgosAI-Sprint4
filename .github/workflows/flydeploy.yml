@@ -49,21 +49,26 @@ jobs:
       - name: Install Flyctl
         run: |
           curl -L https://fly.io/install.sh | sh
-          export PATH="$HOME/.fly/bin:$PATH"
+          echo "Adding Flyctl to PATH"
+          echo 'export PATH="$HOME/.fly/bin:$PATH"' >> $GITHUB_ENV
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
       - name: Verify Flyctl installation
-        run: fly version
+        run: |
+          source $GITHUB_ENV
+          fly version
 
       - name: Authenticate Flyctl
-        run: fly auth whoami
+        run: |
+          source $GITHUB_ENV
+          fly auth whoami
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
       - name: Deploy to Fly.io
         run: |
-          export PATH="$HOME/.fly/bin:$PATH"
+          source $GITHUB_ENV
           fly deploy --remote-only --verbose
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
