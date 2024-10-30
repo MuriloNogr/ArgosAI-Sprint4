@@ -165,72 +165,7 @@ A aplicação utiliza **JUnit** para testes unitários. Com a inclusão de bibli
 
 ### Diagrama UML - Backend
 
-@startuml
-!define Entity(x) class x << (E,#FFAAAA) >>
-
-Entity(ArgosAiSprint3Application)
-
-Entity(Cliente)
-Entity(Usuario)
-Entity(Produto)
-Entity(Perfil)
-Entity(Recommendation)
-Entity(CustomUserDetails)
-
-Entity(ClienteRepository)
-Entity(UsuarioRepository)
-Entity(ProdutoRepository)
-Entity(PerfilRepository)
-
-Entity(ClienteService)
-Entity(UsuarioService)
-Entity(ProdutoService)
-Entity(OpenAIRecommendationService)
-Entity(EmailService)
-Entity(MessageProducer)
-Entity(MessageConsumer)
-
-Entity(ClienteController)
-Entity(ProdutoController)
-Entity(UsuarioController)
-Entity(ContactController)
-Entity(RecommendationController)
-Entity(HomeController)
-
-ArgosAiSprint3Application --> ClienteController
-ArgosAiSprint3Application --> ProdutoController
-ArgosAiSprint3Application --> UsuarioController
-ArgosAiSprint3Application --> ContactController
-ArgosAiSprint3Application --> RecommendationController
-ArgosAiSprint3Application --> HomeController
-
-ClienteController --> ClienteService
-ProdutoController --> ProdutoService
-UsuarioController --> UsuarioService
-ContactController --> EmailService
-RecommendationController --> OpenAIRecommendationService
-
-ClienteService --> ClienteRepository
-UsuarioService --> UsuarioRepository
-ProdutoService --> ProdutoRepository
-OpenAIRecommendationService --> ProdutoService
-
-Cliente --> ClienteRepository
-Usuario --> UsuarioRepository
-Produto --> ProdutoRepository
-Perfil --> PerfilRepository
-
-CustomUserDetails --> Usuario
-
-Cliente --> Usuario
-Usuario --> Perfil
-Usuario --> CustomUserDetails
-Recommendation --> Produto
-MessageProducer --> RabbitMQ
-MessageConsumer --> RabbitMQ
-
-@enduml
-
+![JAS4uml](https://github.com/user-attachments/assets/f6cde0b5-1398-4b6e-a783-1c460ebfc730)
 
 ### Diagrama UML - Frontend
 
