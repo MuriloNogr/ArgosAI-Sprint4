@@ -8,7 +8,7 @@
 <body>
 <a th:href="@{/clientes/listar}" th:text="#{link.back}">Voltar</a>
 <h1 th:text="#{title.edit_client}">Editar Cliente</h1>
-<form th:action="@{/clientes/{id_cliente}(id_cliente=${cliente.id_cliente})}" method="post">
+<form th:action="@{/clientes/salvar}" method="post">
     <input type="hidden" th:value="${cliente.id_cliente}" name="id_cliente"/>
     <label for="nome" th:text="#{label.name}">Nome:</label>
     <input type="text" id="nome" name="nome" th:value="${cliente.nome}" required><br>

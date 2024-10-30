@@ -11,7 +11,7 @@
 <table>
   <thead>
   <tr>
-    <th th:text="#{label.id}">ID</th>
+    <th th:text="#{label.id_cliente}">ID</th>
     <th th:text="#{label.name}">Nome</th>
     <th th:text="#{label.age}">Idade</th>
     <th th:text="#{label.cpf}">CPF</th>
@@ -22,15 +22,15 @@
   </thead>
   <tbody>
   <tr th:each="cliente : ${clientes}">
-    <td th:text="${cliente.id}">ID</td>
+    <td th:text="${cliente.id_cliente}">ID</td>
     <td th:text="${cliente.nome}">Nome</td>
     <td th:text="${cliente.idade}">Idade</td>
     <td th:text="${cliente.cpf}">CPF</td>
     <td th:text="${cliente.email}">E-mail</td>
     <td th:text="${cliente.celular}">Celular</td>
     <td>
-      <a th:href="@{'/clientes/editar/' + ${cliente.id}}" th:text="#{action.edit}">Editar</a>
-      <a th:href="@{'/clientes/deletar/' + ${cliente.id}}" th:text="#{action.delete}">Excluir</a>
+      <a th:href="@{'/clientes/editar/' + ${cliente.id_cliente}}" th:text="#{action.edit}">Editar</a>
+      <a th:href="@{'/clientes/deletar/' + ${cliente.id_cliente}}" th:text="#{action.delete}">Excluir</a>
     </td>
   </tr>
   </tbody>

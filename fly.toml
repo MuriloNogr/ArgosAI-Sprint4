@@ -1,10 +1,12 @@
-# fly.toml app configuration file generated for argosai-sprint3 on 2024-09-13T10:02:33-03:00
+# fly.toml app configuration file generated for argosia on 2024-10-30T17:26:56-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'argosai-sprint3'
+app = 'argosia'
 primary_region = 'gig'
+
+[build]
 
 [http_service]
   internal_port = 8080

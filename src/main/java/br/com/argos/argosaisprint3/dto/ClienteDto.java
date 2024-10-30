@@ -12,7 +12,7 @@ import jakarta.validation.constraints.Size;
 @Getter
 @Setter
 public class ClienteDto extends RepresentationModel<ClienteDto> {
-    private Long id;
+    private Long id_cliente;
 
     @NotBlank(message = "O nome do cliente não pode estar vazio.")
     @Size(max = 255, message = "O nome do cliente não pode exceder 255 caracteres.")

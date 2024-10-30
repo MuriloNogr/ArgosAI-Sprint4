@@ -4,28 +4,23 @@ import br.com.argos.argosaisprint3.exception.ResourceNotFoundException;
 import br.com.argos.argosaisprint3.model.Cliente;
 import br.com.argos.argosaisprint3.service.ClienteService;
 import br.com.argos.argosaisprint3.dto.ClienteDto;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
-
-import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/clientes")
-@Validated
 public class ClienteThymeleafController {
 
     @Autowired
@@ -44,42 +39,34 @@ public class ClienteThymeleafController {
         return "clientes/listar";
     }
 
-    @Operation(summary = "Exibir o formulário de adição de cliente")
+    @Operation(summary = "Exibir o formulário de adição de cliente", description = "Exibe o formulário para adicionar um novo cliente")
     @GetMapping("/adicionar")
     public String exibirFormularioDeAdicao(Model model) {
         model.addAttribute("cliente", new Cliente());
-        return "clientes/adicionar";
+        return "clientes/form";
     }
 
-    @Operation(summary = "Exibir o formulário de edição de cliente")
-    @GetMapping("/editar/{id}")
-    public String exibirFormularioDeEdicao(@PathVariable Long id, Model model) {
-        Cliente cliente = clienteService.findById(id)
+    @Operation(summary = "Exibir o formulário de edição de cliente", description = "Exibe o formulário para editar um cliente existente")
+    @Parameter(name = "id_cliente", description = "ID do cliente a ser editado", required = true)
+    @GetMapping("/editar/{id_cliente}")
+    public String exibirFormularioDeEdicao(@PathVariable("id_cliente") Long id_cliente, Model model) {
+        Cliente cliente = clienteService.findById(id_cliente)
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
         model.addAttribute("cliente", cliente);
-        return "clientes/editar";
+        return "clientes/form";
     }
 
-
-    @Operation(summary = "Salvar um cliente", description = "Salva um cliente no banco de dados")
+    @Operation(summary = "Salvar um cliente", description = "Salva um novo cliente ou atualiza um cliente existente")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "302", description = "Cliente salvo com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Erro ao salvar o cliente")
+            @ApiResponse(responseCode = "302", description = "Redireciona para a lista de clientes após salvar com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Erro de validação")
     })
-    @PostMapping
+    @PostMapping("/salvar")
     public String salvarCliente(@Valid @ModelAttribute Cliente cliente, BindingResult result) {
         if (result.hasErrors()) {
-            return cliente.getId_cliente() == null ? "clientes/adicionar" : "clientes/editar";
+            return "clientes/form";
         }
         clienteService.save(cliente);
-        return "redirect:/clientes/listar";
-    }
-
-    @Operation(summary = "Deletar um cliente", description = "Deleta um cliente do banco de dados")
-
-    @GetMapping("/deletar/{id}")
-    public String deletarCliente(@Parameter(description = "ID do cliente a ser deletado") @PathVariable Long id) {
-        clienteService.deleteById(id);
         return "redirect:/clientes/listar";
     }
 
