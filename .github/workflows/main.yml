@@ -13,21 +13,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Check out code
         uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
 
       - name: Configure environment variables from secrets
         env:
-          GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
-          GMAIL_USER: ${{ secrets.GMAIL_USER }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          ORACLE_DB_PASSWORD: ${{ secrets.ORACLE_DB_PASSWORD }}
           ORACLE_DB_USER: ${{ secrets.ORACLE_DB_USER }}
-          RABBITMQ_PASSWORD: ${{ secrets.RABBITMQ_PASSWORD }}
+          ORACLE_DB_PASSWORD: ${{ secrets.ORACLE_DB_PASSWORD }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           RABBITMQ_USER: ${{ secrets.RABBITMQ_USER }}
-      
-      - name: Set executable permissions for Maven wrapper
-        run: chmod +x ./mvnw
+          RABBITMQ_PASSWORD: ${{ secrets.RABBITMQ_PASSWORD }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
+        run: echo "Environment variables set"
+
+      - name: Build with Maven
+        run: ./mvnw clean install
 
       - name: Run application tests
         run: ./mvnw test
