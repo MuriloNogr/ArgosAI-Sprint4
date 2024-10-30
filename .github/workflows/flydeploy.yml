@@ -49,11 +49,14 @@ jobs:
       - name: Install Flyctl
         run: |
           curl -L https://fly.io/install.sh | sh
-          export PATH="$HOME/.fly/bin:$PATH"
+          export FLYCTL_INSTALL="$HOME/.fly"
+          export PATH="$FLYCTL_INSTALL/bin:$PATH"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
       - name: Deploy to Fly.io
-        run: fly deploy --remote-only
+        run: |
+          export PATH="$HOME/.fly/bin:$PATH"
+          fly deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
