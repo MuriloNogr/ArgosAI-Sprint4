@@ -161,37 +161,9 @@ primary_region = 'gig'
 
 A aplicação utiliza **JUnit** para testes unitários. Com a inclusão de bibliotecas como **Mockito** e **MockWebServer**, foram realizados testes para validar a funcionalidade e a segurança da aplicação.
 
-## 📐 Diagramas UML
-
-### Diagrama UML - Backend
+## 📐 Diagrama UML
 
 ![JAS4uml](https://github.com/user-attachments/assets/f6cde0b5-1398-4b6e-a783-1c460ebfc730)
-
-### Diagrama UML - Frontend
-
-```plantuml
-@startuml
-package "Frontend" {
-  class HomeController {
-    + index(): String
-  }
-  class ClienteThymeleafController {
-    + listarClientes(): String
-    + exibirFormularioDeEdicao(Long): String
-  }
-  class ProdutoThymeleafController {
-    + listarProdutos(): String
-    + exibirFormularioDeEdicao(Long): String
-  }
-  class RecommendationController {
-    + recommendProducts(int, String): String
-  }
-  HomeController --> ClienteThymeleafController
-  ClienteThymeleafController --> ProdutoThymeleafController
-  ProdutoThymeleafController --> RecommendationController
-}
-@enduml
-```
 
 ## 📜 Dependências e Bibliotecas Utilizadas
 
