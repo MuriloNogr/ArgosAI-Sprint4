@@ -39,6 +39,9 @@ jobs:
           GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
         run: echo "Environment variables set"
 
+      - name: Give execute permission to Maven wrapper
+        run: chmod +x ./mvnw
+      
       - name: Build with Maven
         run: ./mvnw clean install
 
