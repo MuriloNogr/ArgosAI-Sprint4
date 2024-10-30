@@ -2,39 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Argos AI - Product Management</title>
+    <title th:text="#{page.title}">Argos AI - Gerenciamento de produtos</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 <header class="navbar">
-    <a href="#" class="logo">Argos AI</a>
-    <nav class="nav-links">
-        <a href="#">Home</a>
-        <a href="#">List Products</a>
-        <a href="#">Add Product</a>
-    </nav>
-    <div class="search-bar">
-        <input type="text" placeholder="Search products..." class="search-input">
-        <button class="search-button">🔍</button>
-    </div>
+    <a href="#" class="logo" th:text="#{navbar.logo}">Argos AI</a>
 </header>
 
 <main class="main-content">
-    <h1>Welcome to the product management system</h1>
-    <p>Use the menu to navigate between pages.</p>
+    <img src="/css/images/argos.png" alt="List Products" class="logo-img">
+    <h1 th:text="#{page.welcome_message}">Bem vindo ao sistema de gerenciamento de Produtos</h1>
+    <p th:text="#{page.instruction}">Use o menu abaixo para navegar entre as páginas.</p>
 
     <div class="cards-container">
         <a href="/produtos/listar" class="card">
             <img src="/css/images/listar.svg" alt="List Products">
-            <span>Produtos</span>
+            <span th:text="#{menu.list_products}">Produtos</span>
         </a>
         <a href="/clientes/listar" class="card">
             <img src="/css/images/clientes.svg" alt="Add Products">
-            <span>Clientes</span>
+            <span th:text="#{menu.list_clients}">Clientes</span>
         </a>
         <a href="/recommendationForm" class="card">
             <img src="/css/images/ai.svg" alt="Search Products">
-            <span>Sugestões com IA</span>
+            <span th:text="#{menu.ai_recommendations}">Sugestões com IA</span>
+        </a>
+        <a href="/contact" class="card">
+            <img src="/css/images/contato.svg" alt="Contact Us">
+            <span th:text="#{menu.contact_us}">Fale Conosco</span>
         </a>
     </div>
 </main>

@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+<a th:href="@{/index}" th:text="#{link.back_to_home}">Voltar</a>
 <h1 th:text="#{page.header}">Obtenha Recomendações de Produtos</h1>
 <form th:action="@{/recommendations}" method="get">
   <label for="age" th:text="#{label.age}">Idade:</label>

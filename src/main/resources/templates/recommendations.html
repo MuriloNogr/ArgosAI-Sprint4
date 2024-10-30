@@ -30,6 +30,7 @@
     </style>
 </head>
 <body>
+<a th:href="@{/recommendationForm}" th:text="#{link.back_to_home}">Voltar</a>
 <h1 style="color: red;" th:text="#{page.header}">Recomendações de Produtos</h1>
 
 <div th:each="recommendation : ${recommendations}">

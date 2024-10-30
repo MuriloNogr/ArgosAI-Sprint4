@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+<main class="main-content">
+<img src="/css/images/argos.png" alt="List Products" class="logo-img">
 <h1 th:text="#{login.header}">Login</h1>
 <form th:action="@{/login}" method="post">
     <label for="username" th:text="#{label.username}">Nome de Usuário:</label>
@@ -15,5 +17,6 @@
     <button type="submit" th:text="#{button.login}">Entrar</button>
 </form>
 <a th:href="@{/register}" th:text="#{link.register_prompt}">Não possui uma conta? Registre-se aqui</a>
+</main>
 </body>
 </html>
