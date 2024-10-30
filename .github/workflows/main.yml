@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Build and Test
 
 on:
   push:
@@ -18,18 +18,16 @@ jobs:
 
       - name: Configure environment variables from secrets
         env:
-          ORACLE_DB_USER: ${{ secrets.ORACLE_DB_USER }}
-          ORACLE_DB_PASSWORD: ${{ secrets.ORACLE_DB_PASSWORD }}
-          RABBITMQ_USER: ${{ secrets.RABBITMQ_USER }}
-          RABBITMQ_PASSWORD: ${{ secrets.RABBITMQ_PASSWORD }}
-          GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          echo "Environment variables configured."
-          # Aqui você pode adicionar comandos para construir e rodar a aplicação
+          ORACLE_DB_PASSWORD: ${{ secrets.ORACLE_DB_PASSWORD }}
+          ORACLE_DB_USER: ${{ secrets.ORACLE_DB_USER }}
+          RABBITMQ_PASSWORD: ${{ secrets.RABBITMQ_PASSWORD }}
+          RABBITMQ_USER: ${{ secrets.RABBITMQ_USER }}
+      
+      - name: Set executable permissions for Maven wrapper
+        run: chmod +x ./mvnw
 
       - name: Run application tests
-        run: |
-          # Comando para rodar testes da aplicação, por exemplo:
-          ./mvnw test
+        run: ./mvnw test
