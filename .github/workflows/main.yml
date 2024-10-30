@@ -1,0 +1,35 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure environment variables from secrets
+        env:
+          ORACLE_DB_USER: ${{ secrets.ORACLE_DB_USER }}
+          ORACLE_DB_PASSWORD: ${{ secrets.ORACLE_DB_PASSWORD }}
+          RABBITMQ_USER: ${{ secrets.RABBITMQ_USER }}
+          RABBITMQ_PASSWORD: ${{ secrets.RABBITMQ_PASSWORD }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          echo "Environment variables configured."
+          # Aqui você pode adicionar comandos para construir e rodar a aplicação
+
+      - name: Run application tests
+        run: |
+          # Comando para rodar testes da aplicação, por exemplo:
+          ./mvnw test
