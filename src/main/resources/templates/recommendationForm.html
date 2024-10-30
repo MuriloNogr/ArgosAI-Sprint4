@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Recomendações de Produtos</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1>Obtenha Recomendações de Produtos</h1>
+<form th:action="@{/recommendations}" method="get">
+  <label for="age">Idade:</label>
+  <input type="number" id="age" name="age" required><br>
+
+  <label for="sexo">Sexo:</label>
+  <select id="sexo" name="sexo" required>
+    <option value="masculino">Masculino</option>
+    <option value="feminino">Feminino</option>
+  </select><br>
+
+  <button type="submit">Obter Recomendações</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Recomendações de Produtos</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .recommendation {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+        .recommendation img {
+            max-width: 150px;
+            max-height: 150px;
+            margin-right: 15px;
+        }
+        .recommendation-details {
+            font-size: 14px;
+        }
+        .recommendation-details h3 {
+            margin: 0;
+            color: #E74C3C;
+        }
+        .recommendation-details p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<h1 style="color: red;">Recomendações de Produtos</h1>
+
+<div th:each="recommendation : ${recommendations}">
+    <div class="recommendation">
+        <img th:src="${recommendation.image}" alt="Imagem do Produto"/>
+        <div class="recommendation-details">
+            <h3 th:text="${recommendation.name}">Nome do Produto</h3>
+            <p th:text="${recommendation.description}">Descrição do Produto</p>
+            <p><strong>Preço:</strong> R$ <span th:text="${recommendation.price}">0.00</span></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
