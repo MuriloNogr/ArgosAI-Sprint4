@@ -14,29 +14,25 @@ import java.util.Locale;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    // Configuração do LocaleResolver para usar cookies
     @Bean
     public LocaleResolver localeResolver() {
         CookieLocaleResolver resolver = new CookieLocaleResolver();
-        resolver.setDefaultLocale(new Locale("pt", "BR")); // Define o idioma padrão como pt-BR
+        resolver.setDefaultLocale(new Locale("pt", "BR"));
         return resolver;
     }
 
-    // Configuração do interceptor para mudar o idioma via parâmetro "lang" na URL
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
-        interceptor.setParamName("lang"); // Parâmetro na URL para mudar o idioma, ex: ?lang=en
+        interceptor.setParamName("lang");
         return interceptor;
     }
 
-    // Adiciona o interceptor à lista de interceptores do Spring
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
-    // Configuração de CORS
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")

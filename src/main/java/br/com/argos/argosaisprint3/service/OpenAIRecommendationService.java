@@ -37,18 +37,15 @@ public class OpenAIRecommendationService {
     public List<Recommendation> getProductRecommendations(int age, String sexo) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
-        // Obtenha os produtos do banco de dados
         List<Produto> produtos = produtoService.findAll();
         List<String> productDescriptions = produtos.stream()
                 .map(produto -> produto.getNome() + " - " + produto.getDescricao() + " (R$" + produto.getPreco() + ")"
                         + " [Imagem: " + produto.getImagem() + "]")
                 .collect(Collectors.toList());
 
-        // Construa o prompt
         String prompt = "Sugira produtos para uma pessoa de sexo " + sexo + " e com " + age + " anos de idade, considerando os seguintes produtos:\n"
                 + String.join(", ", productDescriptions);
 
-        // Configuração da requisição JSON
         JSONObject json = new JSONObject();
         json.put("model", "gpt-3.5-turbo");
         JSONArray messages = new JSONArray();
@@ -62,13 +59,11 @@ public class OpenAIRecommendationService {
                 .post(body)
                 .build();
 
-        // Executa a requisição e processa a resposta
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful()) {
                 JSONObject responseBody = new JSONObject(response.body().string());
                 String aiResponse = responseBody.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content").trim();
 
-                // Processa as sugestões da IA e mapeia para uma lista de recomendações
                 List<Recommendation> recommendations = new ArrayList<>();
                 for (Produto produto : produtos) {
                     if (aiResponse.contains(produto.getNome())) {

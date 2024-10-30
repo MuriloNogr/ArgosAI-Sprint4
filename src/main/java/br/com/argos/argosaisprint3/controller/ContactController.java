@@ -20,11 +20,11 @@ public class ContactController {
     private EmailService emailService;
 
     @Autowired
-    private MessageSource messageSource; // Injeta o MessageSource para obter mensagens de internacionalização
+    private MessageSource messageSource;
 
     @GetMapping
     public String showContactForm(Model model) {
-        return "contact"; // Nome da página Thymeleaf (contact.html)
+        return "contact";
     }
 
     @PostMapping("/sendMessage")
@@ -33,16 +33,13 @@ public class ContactController {
             @RequestParam("email") String email,
             @RequestParam("message") String message,
             Model model,
-            Locale locale) { // Recebe o locale atual
+            Locale locale) {
 
-        // Lógica para enviar a mensagem por e-mail usando o EmailService
         emailService.sendEmail(name, email, message);
 
-        // Obtém a mensagem de confirmação do arquivo de internacionalização
         String confirmationMessage = messageSource.getMessage("confirmation.message", null, locale);
         model.addAttribute("confirmationMessage", confirmationMessage);
 
-        // Retorne para a página de contato com a confirmação
         return "contact";
     }
 }

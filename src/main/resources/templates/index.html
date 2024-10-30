@@ -1,16 +1,42 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{title.home}">Argos - Página Inicial</title>
+    <title>Argos AI - Product Management</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<h1 th:text="#{welcome.message}">Bem-vindo à Argos!</h1>
-<a th:href="@{/produtos/listar}" th:text="#{link.view_products}">Ver Produtos</a>
-<a th:href="@{/clientes/listar}" th:text="#{link.view_clients}">Ver Clientes</a>
-<a th:href="@{/contact}" th:text="#{link.contact_page}">Fale Conosco</a>
-<a th:href="@{/recommendationForm}">IAAAAAAA</a>
+<header class="navbar">
+    <a href="#" class="logo">Argos AI</a>
+    <nav class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">List Products</a>
+        <a href="#">Add Product</a>
+    </nav>
+    <div class="search-bar">
+        <input type="text" placeholder="Search products..." class="search-input">
+        <button class="search-button">🔍</button>
+    </div>
+</header>
 
+<main class="main-content">
+    <h1>Welcome to the product management system</h1>
+    <p>Use the menu to navigate between pages.</p>
+
+    <div class="cards-container">
+        <a href="/produtos/listar" class="card">
+            <img src="/css/images/listar.svg" alt="List Products">
+            <span>Produtos</span>
+        </a>
+        <a href="/clientes/listar" class="card">
+            <img src="/css/images/clientes.svg" alt="Add Products">
+            <span>Clientes</span>
+        </a>
+        <a href="/recommendationForm" class="card">
+            <img src="/css/images/ai.svg" alt="Search Products">
+            <span>Sugestões com IA</span>
+        </a>
+    </div>
+</main>
 </body>
 </html>

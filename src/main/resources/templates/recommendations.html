@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Recomendações de Produtos</title>
+    <title th:text="#{page.title}">Recomendações de Produtos</title>
     <link rel="stylesheet" href="/css/styles.css">
     <style>
         .recommendation {
@@ -30,15 +30,18 @@
     </style>
 </head>
 <body>
-<h1 style="color: red;">Recomendações de Produtos</h1>
+<h1 style="color: red;" th:text="#{page.header}">Recomendações de Produtos</h1>
 
 <div th:each="recommendation : ${recommendations}">
     <div class="recommendation">
         <img th:src="${recommendation.image}" alt="Imagem do Produto"/>
         <div class="recommendation-details">
-            <h3 th:text="${recommendation.name}">Nome do Produto</h3>
-            <p th:text="${recommendation.description}">Descrição do Produto</p>
-            <p><strong>Preço:</strong> R$ <span th:text="${recommendation.price}">0.00</span></p>
+            <h3 th:text="${recommendation.name} ?: #{recommendation.name}">Nome do Produto</h3>
+            <p th:text="${recommendation.description} ?: #{recommendation.description}">Descrição do Produto</p>
+            <p>
+                <strong th:text="#{recommendation.price} + ':'">Preço:</strong>
+                <span th:text="#{currency.symbol} + ' ' + (${recommendation.price} ?: '0.00')">R$ 0.00</span>
+            </p>
         </div>
     </div>
 </div>

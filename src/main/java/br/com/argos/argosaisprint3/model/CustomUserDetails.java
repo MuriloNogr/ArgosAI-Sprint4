@@ -16,7 +16,6 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Se você não estiver implementando perfis de usuários, pode retornar uma lista vazia
         return Collections.emptyList();
     }
 
