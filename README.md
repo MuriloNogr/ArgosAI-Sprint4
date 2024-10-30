@@ -1,139 +1,227 @@
-# ArgosAI-Sprint3
 
-## Visão Geral
+# Argos AI
 
-ArgosAI-Sprint3 é um projeto desenvolvido para gerenciar clientes e produtos em um sistema de recomendação. Ele faz uso de APIs RESTful, documentação com Swagger, e a arquitetura segue padrões como HATEOAS (Hypermedia as the Engine of Application State) para uma navegação mais dinâmica entre recursos.
+**Argos AI** é uma aplicação web de recomendação e gerenciamento de produtos, desenvolvida em **Java** com **Spring Boot**. O projeto utiliza **Inteligência Artificial** via **OpenAI API** para recomendar produtos personalizados aos usuários, baseado em informações como idade e gênero, fornecendo uma experiência única e direcionada. Além disso, o sistema conta com funcionalidades de CRUD, autenticação, envio de mensagens e envio de emails, utilizando tecnologias modernas e boas práticas de segurança.
 
-Link da  API: https://argosai-sprint3.fly.dev
-Link do video: https://youtu.be/TuZxLj5rcB0?si=O8vT2Xtyl3Zfn52d
+## 🚀 Visão Geral do Projeto
 
-## Tecnologias Utilizadas
+O sistema **ArgosAI-Sprint3** possui as seguintes funcionalidades principais:
 
-- **Java 17**: Linguagem principal do projeto.
-- **Spring Boot**: Framework para simplificar o desenvolvimento, especialmente para a criação de APIs RESTful.
-- **Maven**: Ferramenta de gerenciamento de dependências e build.
-- **Oracle SQL**: Banco de dados relacional utilizado para persistência dos dados.
-- **Hibernate**: Framework de ORM (Object Relational Mapping) para gerenciar as entidades JPA.
-- **Swagger/OpenAPI**: Utilizado para gerar a documentação da API automaticamente.
-- **ModelMapper**: Para converter entidades em DTOs e vice-versa.
-- **Lombok**: Para reduzir o código boilerplate, como getters, setters e construtores.
-- **Thymeleaf**: Template engine para renderização de páginas HTML.
-- **HATEOAS**: Para fornecer links de navegação entre recursos REST.
-- **Fly.io**: Plataforma para deployment da aplicação.
+- **Recomendação de Produtos com IA**: Recomendações personalizadas com base no perfil do usuário.
+- **Gerenciamento de Clientes e Produtos**: CRUD para clientes e produtos, permitindo adicionar, atualizar, listar e excluir.
+- **Autenticação e Autorização**: Implementação de segurança usando **Spring Security** com controle de acesso.
+- **Envio de Mensagens e E-mails**: Envio de e-mails com o serviço de **Gmail** e utilização do **RabbitMQ** para filas de mensagens.
+- **Internacionalização**: Suporte multilíngue com tradução dinâmica entre português (pt-BR) e inglês (en-US).
 
-## Arquitetura e Design Pattern
+A aplicação é totalmente conteinerizada com **Docker** e foi implantada no **Fly.io** para garantir disponibilidade e escalabilidade.
 
-A arquitetura segue o padrão de **Camadas (Layered Architecture)**, separando responsabilidades em:
+## 🌐 Acessar a Aplicação
 
-- **Controller**: Manipula as requisições HTTP e orquestra o fluxo de dados.
-- **Service**: Contém a lógica de negócios da aplicação.
-- **Repository**: Responsável pela comunicação com o banco de dados.
+[Link para a aplicação no Fly.io](https://argosia.fly.dev)
 
-O projeto também utiliza o design pattern **DTO (Data Transfer Object)** para encapsular e transmitir dados entre a API e os serviços. O **ModelMapper** facilita a conversão entre os modelos e os DTOs.
+## 📊 Estrutura do Projeto
 
-**HATEOAS** é implementado para incluir links de navegação entre as respostas das APIs, permitindo que o cliente possa explorar os recursos relacionados sem precisar conhecer todos os endpoints.
+A arquitetura do projeto segue o padrão **MVC (Model-View-Controller)** com a seguinte divisão de camadas:
 
-## Explicação das Classes
+- **Controller**: Gerencia as requisições HTTP e define os endpoints da API.
+- **Service**: Contém a lógica de negócio.
+- **Repository**: Gerencia a persistência de dados com o banco de dados Oracle.
+- **Model**: Representa as entidades da base de dados.
 
-### Configurações
+### Principais Tecnologias e Bibliotecas Utilizadas
 
-- **CorsConfig**: Define as permissões de CORS, permitindo que o frontend, rodando em outra origem (localhost ou Fly.io), se comunique com a API.
-- **ModelMapperConfig**: Configura o `ModelMapper` para realizar a conversão entre entidades e DTOs.
-- **SwaggerConfig**: Configura o Swagger para a documentação da API, que pode ser acessada via `/swagger-ui.html`.
+- **Java 17**: Linguagem de programação para desenvolvimento da aplicação.
+- **Spring Boot 3.0**: Framework para simplificação do desenvolvimento.
+- **Spring Security**: Controle de autenticação e autorização.
+- **Spring Data JPA**: Manipulação de dados com ORM.
+- **Thymeleaf**: Template engine para renderização das páginas.
+- **Swagger (OpenAPI)**: Documentação interativa da API.
+- **Docker**: Conteinerização da aplicação.
+- **Fly.io**: Plataforma de deploy em nuvem.
+- **RabbitMQ**: Broker de mensagens para comunicação assíncrona.
+- **JUnit**: Framework para testes unitários.
 
-### Controllers
+### Destaque para Inteligência Artificial com OpenAI API
 
-#### ClienteController
+A aplicação utiliza **OpenAI API** para fornecer recomendações personalizadas de produtos. Através de um endpoint de recomendação, a aplicação se comunica com a OpenAI para gerar sugestões baseadas em dados fornecidos pelo usuário, como idade e gênero. Essa integração permite um alto nível de personalização, criando uma experiência dinâmica e diferenciada.
 
-Define endpoints para gerenciar clientes:
-- `GET /api/clientes`: Retorna todos os clientes.
-- `GET /api/clientes/{id}`: Retorna um cliente por ID.
-- `POST /api/clientes`: Cria um novo cliente.
-- `PUT /api/clientes/{id}`: Atualiza um cliente existente.
-- `DELETE /api/clientes/{id}`: Exclui um cliente.
+**Exemplo de Requisição OpenAI**:
+```java
+OkHttpClient client = new OkHttpClient();
+String prompt = "Sugira produtos para uma pessoa de sexo " + sexo + " e com " + age + " anos de idade...";
+JSONObject json = new JSONObject();
+json.put("model", "gpt-3.5-turbo");
+json.put("messages", new JSONArray().put(new JSONObject().put("role", "user").put("content", prompt)));
 
-Implementa HATEOAS, adicionando links de navegação às respostas.
+Request request = new Request.Builder()
+        .url(OPENAI_API_URL)
+        .header("Authorization", "Bearer " + apiKey)
+        .post(RequestBody.create(json.toString(), MediaType.get("application/json; charset=utf-8")))
+        .build();
+```
 
-#### ProdutoController
+## 🌐 Endpoints da API
 
-Define endpoints para gerenciar produtos:
-- `GET /api/produtos`: Retorna todos os produtos.
-- `GET /api/produtos/{id}`: Retorna um produto por ID.
-- `POST /api/produtos`: Cria um novo produto.
-- `PUT /api/produtos/{id}`: Atualiza um produto existente.
-- `DELETE /api/produtos/{id}`: Exclui um produto.
+### Endpoints Principais
 
-Também utiliza HATEOAS para fornecer links de navegação.
+| Método | Endpoint                  | Descrição                                 |
+|--------|----------------------------|-------------------------------------------|
+| GET    | /api/produtos              | Lista todos os produtos                   |
+| POST   | /api/produtos              | Cria um novo produto                      |
+| GET    | /api/clientes              | Lista todos os clientes                   |
+| GET    | /recommendations           | Recomendação de produtos via OpenAI       |
+| GET    | /contact                   | Formulário de contato                     |
+| POST   | /contact/sendMessage       | Envio de mensagem via e-mail              |
 
-#### HomeController
+### Recomendação de Produtos
 
-Responsável por gerenciar a página inicial da aplicação, que é acessada via `/`.
+```json
+GET /recommendations?age=25&sexo=feminino
+{
+    "name": "Perfume Paris",
+    "description": "Perfume leve e floral, ideal para uso diário.",
+    "price": 250.00,
+    "image": "https://example.com/perfume.jpg"
+}
+```
 
-#### ClienteThymeleafController e ProdutoThymeleafController
+## 🛠️ Arquivo `application.properties` e Configurações de Segurança
 
-São controladores para as páginas renderizadas com Thymeleaf, permitindo a interação com os clientes e produtos através de formulários HTML.
+No arquivo `application.properties`, as credenciais e senhas sensíveis são armazenadas em variáveis de ambiente no GitHub Secrets e referenciadas no `main.yml` para garantir a segurança. Algumas das principais configurações incluem:
 
-### DTOs
+```properties
+spring.datasource.url=jdbc:oracle:thin:@//oracle.fiap.com.br:1521/orcl
+spring.datasource.username=${ORACLE_DB_USER}
+spring.datasource.password=${ORACLE_DB_PASSWORD}
+spring.mail.username=${GMAIL_USER}
+spring.mail.password=${GMAIL_PASSWORD}
+openai.api.key=${OPENAI_API_KEY}
+```
 
-- **ClienteDto**: DTO utilizado para transferir dados de clientes. Inclui validações de campo como `@NotBlank` e `@Size` para garantir que os dados estejam no formato correto.
-- **ProdutoDto**: DTO para transferência de dados de produtos. Também inclui validações como `@NotBlank` e `@Positive` para garantir consistência nos dados.
+## 🔐 Autenticação e Segurança
 
-### Modelos
+### Configuração do Spring Security
 
-- **Cliente**: Entidade JPA que mapeia a tabela `TB_ARGOS_CLIENTES` no banco de dados. Inclui campos como `nome`, `idade`, `cpf`, `email` e `celular`, todos com validações apropriadas.
-- **Produto**: Entidade JPA que mapeia a tabela `TB_ARGOS_PRODUTOS`. Inclui campos como `nome`, `descricao`, `preco`, `quantidade` e `imagem`.
+A aplicação utiliza **Spring Security** para autenticação e controle de acesso. As rotas são protegidas, garantindo que apenas usuários autenticados possam acessar o sistema.
 
-### Serviços
+```java
+http
+    .csrf().disable()
+    .authorizeHttpRequests()
+    .requestMatchers("/register", "/login", "/css/**").permitAll()
+    .anyRequest().authenticated()
+    .and()
+    .formLogin()
+    .loginPage("/login")
+    .defaultSuccessUrl("/index", true)
+    .permitAll();
+```
 
-- **ClienteService**: Responsável pela lógica de negócios relacionada aos clientes, como buscar, salvar e deletar clientes.
-- **ProdutoService**: Lida com a lógica de negócios para produtos, oferecendo métodos para buscar, salvar e deletar produtos.
+## 🌎 Internacionalização
 
-### Exceções
+A aplicação é internacionalizada para suportar múltiplos idiomas, principalmente português (pt-BR) e inglês (en-US). Para trocar o idioma, basta adicionar o parâmetro `lang` na URL:
 
-- **ResourceNotFoundException**: Exceção personalizada lançada quando um recurso solicitado não é encontrado no banco de dados.
+- Exemplo: `/clientes/listar?lang=en` para exibir a interface em inglês.
 
-### Repositórios
+## 🐳 Deploy com Docker e Fly.io
 
-- **ClienteRepository**: Interface que herda de `JpaRepository`, fornecendo métodos de busca e persistência para a entidade `Cliente`.
-- **ProdutoRepository**: Interface que herda de `JpaRepository` para gerenciar a persistência de `Produto`.
+O projeto é completamente conteinerizado com Docker e configurado para deployment no Fly.io, utilizando o arquivo `fly.toml` para configurações adicionais:
 
-## Endpoints
+### Arquivo `Dockerfile`
 
-### Clientes
+```dockerfile
+# Etapa 1: Compilar o projeto
+FROM maven:3.8.8-eclipse-temurin-17 AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-- `GET /api/clientes`: Lista todos os clientes.
-- `GET /api/clientes/{id}`: Obtém um cliente por ID.
-- `POST /api/clientes`: Cria um novo cliente.
-- `PUT /api/clientes/{id}`: Atualiza um cliente.
-- `DELETE /api/clientes/{id}`: Exclui um cliente.
+# Etapa 2: Executar a aplicação
+FROM eclipse-temurin:17-jdk-jammy
+WORKDIR /app
+COPY --from=build /app/target/ArgosAI-Sprint3-0.0.1-SNAPSHOT.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
+```
 
-### Produtos
+### Configuração no `fly.toml`
 
-- `GET /api/produtos`: Lista todos os produtos.
-- `GET /api/produtos/{id}`: Obtém um produto por ID.
-- `POST /api/produtos`: Cria um novo produto.
-- `PUT /api/produtos/{id}`: Atualiza um produto.
-- `DELETE /api/produtos/{id}`: Exclui um produto.
+```toml
+app = 'argosia'
+primary_region = 'gig'
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_start_machines = true
+  min_machines_running = 0
+```
 
-## Dependências
+## 💡 Testes Unitários com JUnit
 
-- **Spring Boot Starter Web**: Para a criação de APIs RESTful.
-- **Spring Boot Starter Data JPA**: Para integração com o banco de dados usando Hibernate.
-- **Spring Boot Starter Thymeleaf**: Para renderização de páginas HTML.
-- **ModelMapper**: Para conversão entre entidades e DTOs.
-- **Lombok**: Para reduzir código boilerplate, como getters e setters.
-- **Springdoc OpenAPI**: Para a documentação automática da API.
-- **Oracle JDBC Driver**: Para conexão com o banco de dados Oracle.
-- **HikariCP**: Para otimização da conexão com o banco de dados.
+A aplicação utiliza **JUnit** para testes unitários. Com a inclusão de bibliotecas como **Mockito** e **MockWebServer**, foram realizados testes para validar a funcionalidade e a segurança da aplicação.
 
-## Desenho UML
+## 📐 Diagramas UML
 
-![ArgosJaSprint3Uml](https://github.com/user-attachments/assets/f92eb320-244f-4f7e-b632-8bf716d74276)
+### Diagrama UML - Backend
 
+```plantuml
+@startuml
+package "br.com.argos.argosaisprint3" {
+  class Cliente {
+    - id_cliente: Long
+    - nome: String
+    - idade: int
+    - cpf: String
+    - email: String
+    - celular: String
+  }
+  class Produto {
+    - id: Long
+    - nome: String
+    - descricao: String
+    - quantidade: int
+    - preco: Double
+    - imagem: String
+  }
+  class Usuario {
+    - id: Long
+    - username: String
+    - senha: String
+  }
+  Cliente --> Produto : "Possui"
+  Usuario --> Cliente : "Gerencia"
+}
+@enduml
+```
 
-## Deploy
+### Diagrama UML - Frontend
 
-O deploy é realizado utilizando Fly.io, com o arquivo `fly.toml` configurando o serviço e o Docker sendo utilizado para compilar e executar a aplicação. O processo envolve duas etapas principais:
+```plantuml
+@startuml
+package "Frontend" {
+  class HomeController {
+    + index(): String
+  }
+  class ClienteThymeleafController {
+    + listarClientes(): String
+    + exibirFormularioDeEdicao(Long): String
+  }
+  class ProdutoThymeleafController {
+    + listarProdutos(): String
+    + exibirFormularioDeEdicao(Long): String
+  }
+  class RecommendationController {
+    + recommendProducts(int, String): String
+  }
+  HomeController --> ClienteThymeleafController
+  ClienteThymeleafController --> ProdutoThymeleafController
+  ProdutoThymeleafController --> RecommendationController
+}
+@enduml
+```
 
-1. **Build** da aplicação usando Maven para gerar o arquivo `.jar`.
-2. **Deploy** da aplicação com Fly.io, expondo a porta 8080 para a API.
+## 📜 Dependências e Bibliotecas Utilizadas
+
+### Spring Boot
+...
