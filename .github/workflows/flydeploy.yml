@@ -21,6 +21,13 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+          java-package: jdk
+          architecture: x64
+          check-latest: false
+          server-id: github
+          server-username: ${{ github.actor }}
+          server-password: ${{ secrets.GITHUB_TOKEN }}
+          overwrite-settings: true
 
       - name: Configure environment variables from secrets
         env:
@@ -37,25 +44,26 @@ jobs:
         run: chmod +x ./mvnw
 
       - name: Build with Maven (skip tests)
-        run: mvn clean install -DskipTests
+        run: ./mvnw clean install -DskipTests
 
       - name: Install Flyctl
         run: |
           curl -L https://fly.io/install.sh | sh
-          echo "export PATH=\"$HOME/.fly/bin:\$PATH\"" >> $GITHUB_ENV
+          export PATH="$HOME/.fly/bin:$PATH"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
-      - name: Verify Flyctl installation and authenticate
-        run: |
-          export PATH="$HOME/.fly/bin:$PATH"
-          fly auth token $FLY_API_TOKEN
+      - name: Verify Flyctl installation
+        run: fly version
+
+      - name: Authenticate Flyctl
+        run: fly auth whoami
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
       - name: Deploy to Fly.io
         run: |
           export PATH="$HOME/.fly/bin:$PATH"
-          fly deploy --remote-only
+          fly deploy --remote-only --verbose
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
