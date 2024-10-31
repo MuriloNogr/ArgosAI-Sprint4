@@ -167,5 +167,22 @@ A aplicação utiliza **JUnit** para testes unitários. Com a inclusão de bibli
 
 ## 📜 Dependências e Bibliotecas Utilizadas
 
-### Spring Boot
-...
+### Spring Boot e Módulos Relacionados
+- **spring-boot-starter-web**: Para criar a API RESTful.
+- **spring-boot-starter-data-jpa**: Integração com JPA para ORM.
+- **spring-boot-starter-security**: Configuração de segurança com autenticação e autorização.
+- **spring-boot-starter-thymeleaf**: Renderização do frontend.
+- **spring-boot-starter-mail**: Envio de e-mails.
+
+### Outras Dependências
+- **springdoc-openapi-ui**: Geração de documentação da API com Swagger.
+- **lombok**: Redução de boilerplate com geração automática de getters/setters.
+- **modelmapper**: Mapeamento entre entidades e DTOs.
+- **okhttp**: Cliente HTTP para chamadas na API da OpenAI.
+- **oracle.database.jdbc**: Driver JDBC para integração com Oracle.
+
+## 🧑‍💻 Contribuidores
+- **Luis Fernando Menezes Zampar** - RM 550531
+- **Diogo Fagioli Bombonatti** - RM 551694
+- **Murilo Nogueira** - RM 89162
+- **Gabriel Galdino da Silva** - RM 550711
