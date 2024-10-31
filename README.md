@@ -17,7 +17,7 @@ A aplicação é totalmente conteinerizada com **Docker** e foi implantada no **
 
 ## 🌐 Acessar a Aplicação
 
-[Link para a aplicação no Fly.io](https://argosia.fly.dev)
+[Link para a aplicação no Fly.io](https://argosia.fly.dev/)
 
 ## 📊 Estrutura do Projeto
 
@@ -121,7 +121,7 @@ http
 
 A aplicação é internacionalizada para suportar múltiplos idiomas, principalmente português (pt-BR) e inglês (en-US). Para trocar o idioma, basta adicionar o parâmetro `lang` na URL:
 
-- Exemplo: `/clientes/listar?lang=en` para exibir a interface em inglês.
+- Exemplo: `/clientes/listar?lang=en-US` para exibir a interface em inglês.
 
 ## 🐳 Deploy com Docker e Fly.io
 
