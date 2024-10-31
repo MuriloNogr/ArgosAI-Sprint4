@@ -17,7 +17,7 @@ A aplicação é totalmente conteinerizada com **Docker** e foi implantada no **
 
 ## 🌐 Acessar a Aplicação
 
-[Link para a aplicação no Fly.io](https://argosia.fly.dev/)
+[Link para a aplicação no Fly.io](https://argosia.fly.dev/index)
 
 ## 📊 Estrutura do Projeto
 
