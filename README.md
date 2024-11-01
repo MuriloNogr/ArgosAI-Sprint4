@@ -5,7 +5,7 @@
 
 ## 🚀 Visão Geral do Projeto
 
-O sistema **ArgosAI-Sprint3** possui as seguintes funcionalidades principais:
+O sistema **Argos AI** possui as seguintes funcionalidades principais:
 
 - **Recomendação de Produtos com IA**: Recomendações personalizadas com base no perfil do usuário.
 - **Gerenciamento de Clientes e Produtos**: CRUD para clientes e produtos, permitindo adicionar, atualizar, listar e excluir.
