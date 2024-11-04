@@ -1,4 +1,7 @@
 
+![ArgosAIMainLogo](https://github.com/user-attachments/assets/74ac139e-cea0-4ec9-a70e-1b84dc2943a2)
+
+
 # Argos AI
 
 **Argos AI** é uma aplicação web de recomendação e gerenciamento de produtos, desenvolvida em **Java** com **Spring Boot**. O projeto utiliza **Inteligência Artificial** via **OpenAI API** para recomendar produtos personalizados aos usuários, baseado em informações como idade e gênero, fornecendo uma experiência única e direcionada. Além disso, o sistema conta com funcionalidades de CRUD, autenticação, envio de mensagens e envio de emails, utilizando tecnologias modernas e boas práticas de segurança.
