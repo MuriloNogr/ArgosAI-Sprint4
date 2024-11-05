@@ -22,6 +22,7 @@ A aplicação é totalmente conteinerizada com **Docker** e foi implantada no **
 
 [Link para a aplicação no Fly.io](https://argosia.fly.dev/index)
 
+[Link para o vídeo de apresentação](https://youtu.be/6yLXg059W6M?si=L0V0erS6BVpqFa7H)
 ## 📊 Estrutura do Projeto
 
 A arquitetura do projeto segue o padrão **MVC (Model-View-Controller)** com a seguinte divisão de camadas:

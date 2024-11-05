@@ -70,6 +70,13 @@ public class ClienteThymeleafController {
         return "redirect:/clientes/listar";
     }
 
+    @GetMapping("/deletar/{id}")
+    public String deletarProduto(@PathVariable Long id) {
+        clienteService.deleteById(id);
+        return "redirect:/clientes/listar";
+    }
+
+
     private ClienteDto convertToDto(Cliente cliente) {
         return modelMapper.map(cliente, ClienteDto.class);
     }
